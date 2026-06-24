@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #1a1612;
+  background-color: #f4ecd8;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #f4ecd8;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(139, 26, 26, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(201, 169, 97, 0.04) 0%,
+      transparent 50%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(26, 22, 18, 0.008) 2px,
+      rgba(26, 22, 18, 0.008) 4px
+    );
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e8dcc0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b1a1a;
+  border-radius: 0;
+  border: 2px solid #e8dcc0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b1010;
+}
+
+/* 文字选区 */
+::selection {
+  background: #8b1a1a;
+  color: #f4ecd8;
+}
+
+@layer components {
+  /* 邮票齿孔边框效果 */
+  .stamp-perforation {
+    position: relative;
+    padding: 14px;
+    background: #f4ecd8;
+    background-clip: padding-box;
+    border: 2px dashed rgba(139, 26, 26, 0.3);
+  }
+
+  .stamp-perforation::before {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    z-index: -1;
+    background: radial-gradient(
+      circle,
+      transparent 5px,
+      #f4ecd8 5.5px
+    );
+    background-size: 14px 14px;
+    background-position: -7px -7px;
+  }
+
+  /* 邮票内框 */
+  .stamp-inner {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #faf4e6 0%, #f4ecd8 100%);
+    border: 1px solid rgba(139, 26, 26, 0.15);
+  }
+
+  /* 鎏金分隔线 */
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #c9a961 20%,
+      #e0c68a 50%,
+      #c9a961 80%,
+      transparent 100%
+    );
+  }
+
+  .gold-divider-vertical {
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      #c9a961 20%,
+      #e0c68a 50%,
+      #c9a961 80%,
+      transparent 100%
+    );
+  }
+
+  /* 印章效果 */
+  .seal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #8b1a1a;
+    color: #8b1a1a;
+    background: rgba(139, 26, 26, 0.05);
+    font-family: "Noto Serif SC", serif;
+    transform: rotate(-3deg);
+    transition: transform 0.3s ease;
+  }
+
+  .seal:hover {
+    transform: rotate(0deg);
+  }
+
+  /* 竖排文字 */
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0.1em;
+  }
+
+  /* 年代水印数字 */
+  .decade-watermark {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(139, 26, 26, 0.12);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* 纸张纹理叠加 */
+  .paper-grain {
+    position: relative;
+  }
+
+  .paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  /* 邮票悬浮卡片 */
+  .stamp-card {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.5s ease;
+  }
+
+  .stamp-card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    box-shadow: 0 20px 40px -10px rgba(26, 22, 18, 0.3),
+      0 0 0 1px rgba(201, 169, 97, 0.3);
+  }
+
+  /* 标签胶囊 */
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.875rem;
+    border: 1px solid rgba(139, 26, 26, 0.3);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+    color: #5c5246;
+  }
+
+  .tag-pill:hover {
+    border-color: #8b1a1a;
+    color: #8b1a1a;
+  }
+
+  .tag-pill.active {
+    background: #8b1a1a;
+    border-color: #8b1a1a;
+    color: #f4ecd8;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* 渐入动画延迟工具类 */
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+  .delay-700 {
+    animation-delay: 0.7s;
+  }
+  .delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .opacity-0-initial {
+    opacity: 0;
+  }
+
+  /* 邮票图案背景 */
+  .stamp-pattern {
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 8px,
+        rgba(139, 26, 26, 0.04) 8px,
+        rgba(139, 26, 26, 0.04) 9px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 8px,
+        rgba(201, 169, 97, 0.04) 8px,
+        rgba(201, 169, 97, 0.04) 9px
+      );
+  }
+}
