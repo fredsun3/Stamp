@@ -5,9 +5,11 @@ import Home from "@/pages/Home";
 import DecadeGallery from "@/pages/DecadeGallery";
 import StampDetail from "@/pages/StampDetail";
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 export default function App() {
   return (
-    <Router>
+    <Router basename={basename}>
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1">
